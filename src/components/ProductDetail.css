@@ -1,0 +1,46 @@
+.carousel-indicators button {
+    border-radius: 50%;
+    width: 10px !important;
+    height: 10px !important;
+}
+
+.carousel {
+    width: 30%;
+}
+
+.carousel img {
+    width: inherit;
+}
+
+.carousel-inner {
+    height: 600px;
+    display: flex;
+    align-items: center;
+}
+
+.card {
+    width: 30%;
+}
+
+.productDetail {
+    display: flex;
+    margin: 20px;
+    justify-content: center;
+}
+
+@media only screen and (max-width: 767px) {
+    .carousel {
+        width: 100%;
+    }
+
+    .card {
+        width: 100%;
+    }
+
+    .productDetail {
+        display: flex;
+        margin: 20px;
+        justify-content: center;
+        flex-direction: column;
+    }
+}

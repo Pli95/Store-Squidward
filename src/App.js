@@ -1,25 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { BrowserRouter as Router } from "react-router-dom"
+import { Provider } from 'react-redux';
+import React from 'react';
+import store from './redux/configureStore';
+import api from './api/connectDB'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import './App.css';
+import { AppRoutes } from './components/Routes';
+import * as types from "./redux/actions/actionTypes";
+import { Header } from './components/Header';
+
+
+class App extends React.Component {
+  async componentDidMount() {
+    await api.getAllItems().then(items => {
+      const products = items.data.data;
+      store.subscribe(() => this.forceUpdate())
+      store.dispatch({ type: types.SET_PRODUCTS, products: products })
+    });
+
+  }
+
+  render() {
+    return (
+      <Provider store={store}>
+        <div className="App">
+          <Header/>
+          <Router>
+            <AppRoutes />
+          </Router>
+        </div>
+      </Provider>
+
+    );
+  }
 }
 
 export default App;
